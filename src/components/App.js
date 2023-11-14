@@ -26,6 +26,12 @@ export class App extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   addContact = newContact => {
     const duplicateContact = this.state.contacts.find(
       contact =>
@@ -56,12 +62,6 @@ export class App extends Component {
   filterContacts = filterValue => {
     this.setState({ filter: filterValue });
   };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
 
   render() {
     const { filter, contacts } = this.state;

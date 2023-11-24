@@ -13,6 +13,8 @@ const initialContacts = [
   { id: '4', firstName: 'Annie Copeland', phoneNumber: '2279126' },
 ];
 
+const LS_KEY_CONTACTS = 'contacts';
+
 export class App extends Component {
   state = {
     contacts: initialContacts,
@@ -20,7 +22,7 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    const localContacts = JSON.parse(localStorage.getItem('contacts'));
+    const localContacts = JSON.parse(localStorage.getItem(LS_KEY_CONTACTS));
     if (localContacts) {
       this.setState({ contacts: localContacts });
     }
@@ -28,7 +30,10 @@ export class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      localStorage.setItem(
+        LS_KEY_CONTACTS,
+        JSON.stringify(this.state.contacts)
+      );
     }
   }
 
